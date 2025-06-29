@@ -35,7 +35,7 @@ namespace MaleFashionCoreMVC.Controllers
                 if (categories == null || !categories.Any())
                 {
                     _logger.LogWarning("No categories found in the database");
-                    ViewBag.Categories = new List<Category>(); // Gán danh sách rỗng để tránh lỗi null
+                    ViewBag.Categories = new List<Category>(); 
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace MaleFashionCoreMVC.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error retrieving products or categories");
-                ViewBag.Categories = new List<Category>(); // Gán danh sách rỗng trong trường hợp lỗi
+                ViewBag.Categories = new List<Category>(); 
                 return View(new List<Product>());
             }
         }
@@ -95,11 +95,11 @@ namespace MaleFashionCoreMVC.Controllers
                 var category = await _context.Categories.FindAsync(product.CategoryId);
                 ViewBag.CategoryName = category?.Name ?? "Unknown";
 
-                // Lấy sản phẩm liên quan (cùng danh mục, trừ sản phẩm hiện tại, lấy tối đa 4 sản phẩm)
+                // Lấy sản phẩm liên quan
                 var relatedProducts = await _productRepository.GetAllProductsAsync();
                 relatedProducts = relatedProducts
                     .Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id)
-                    .OrderBy(p => p.Name) // Thêm OrderBy để tránh cảnh báo
+                    .OrderBy(p => p.Name) 
                     .Take(4)
                     .ToList();
                 ViewBag.RelatedProducts = relatedProducts;

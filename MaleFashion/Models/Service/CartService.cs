@@ -20,14 +20,14 @@ namespace MaleFashion.Models.Service
         public Order GetCart(HttpContext httpContext)
         {
             var session = httpContext.Session;
-            var cartJson = session.GetString("Cart"); // Lấy chuỗi JSON từ session
+            var cartJson = session.GetString("Cart"); 
             if (string.IsNullOrEmpty(cartJson))
             {
                 var cart = new Order { OrderItems = new List<OrderItem>() };
-                session.SetString("Cart", JsonSerializer.Serialize(cart)); // Lưu cart vào session
+                session.SetString("Cart", JsonSerializer.Serialize(cart));
                 return cart;
             }
-            return JsonSerializer.Deserialize<Order>(cartJson); // Chuyển đổi JSON thành Order
+            return JsonSerializer.Deserialize<Order>(cartJson); 
         }
 
         public async Task AddToCartAsync(int productId, HttpContext httpContext)

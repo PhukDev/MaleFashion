@@ -49,12 +49,12 @@ namespace MaleFashion.Data
                 .HasForeignKey(c => c.BlogPostId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Đảm bảo UserId trong Orders là nullable
+            
             modelBuilder.Entity<Order>()
                 .Property(o => o.UserId)
                 .IsRequired(false);
 
-            // Cấu hình kiểu decimal cho Total (Order), Price (OrderItem), Price (Product)
+          
             modelBuilder.Entity<Order>()
                 .Property(o => o.Total)
                 .HasColumnType("decimal(18,2)");

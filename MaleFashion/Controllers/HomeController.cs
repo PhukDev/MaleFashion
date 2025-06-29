@@ -25,7 +25,7 @@ namespace MaleFashionCoreMVC.Controllers
             try
             {
                 var products = await _context.Products
-                    .OrderBy(p => p.Name) // Thêm OrderBy để tránh cảnh báo
+                    .OrderBy(p => p.Name) 
                     .Take(8)
                     .ToListAsync();
                 var latestPosts = await _context.BlogPosts
