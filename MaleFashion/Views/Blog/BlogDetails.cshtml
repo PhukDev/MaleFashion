@@ -1,0 +1,133 @@
+﻿@model MaleFashion.Models.BlogPost
+
+@{
+    ViewData["Title"] = "Chi tiết bài viết";
+}
+
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>@Model.Title</h4>
+                    <div class="breadcrumb__links">
+                        <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                        <a asp-controller="Blog" asp-action="Index">Bài viết</a>
+                        <span>@Model.Title</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Blog Details Section Begin -->
+<div class="blog-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="blog-details__item">
+                    <div class="blog-details__item__title">
+                        <h2>@Model.Title</h2>
+                        <div class="blog-details__item__title__meta">
+                            <span>By @Model.Author</span>
+                            <span>@Model.DatePosted.ToString("MMMM dd, yyyy")</span>
+                            <span>@Model.Comments.Count Nội dung bình luận</span>
+                        </div>
+                    </div>
+                    <div class="blog-details__item__text">
+                        <p>@Model.Content</p>
+                        @if (!string.IsNullOrEmpty(Model.Quote))
+                        {
+                            <div class="blog-details__item__quote">
+                                <p>@Model.Quote</p>
+                                <span>_ @Model.QuoteAuthor _</span>
+                            </div>
+                        }
+                   
+                        <div class="blog-details__item__share">
+                            <span>chia sẻ</span>
+                            <a href="#" class="social-link"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fa fa-google-plus"></i></a>
+                            <a href="#" class="social-link"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                        <div class="blog-details__item__author">
+                            <div class="blog-details__item__author__pic">
+                                <img src="img/blog/details/blog-details.jpg" alt="Author" class="img-fluid">
+                            </div>
+                            <div class="blog-details__item__author__text">
+                                <h5>Aiden Blair</h5>
+                                <span>Writer & Editor</span>
+                            </div>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.Tags))
+                        {
+                            <div class="blog-details__item__tags">
+                                @foreach (var tag in Model.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    <a href="#" class="tag-link">@tag.Trim()</a>
+                                }
+                            </div>
+                        }
+                        <div class="blog-details__item__nav">
+                            @if (Model.PreviousPostId.HasValue)
+                            {
+                                <div class="blog-details__item__nav__prev">
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@Model.PreviousPostId">
+                                        <span>Bài trước</span>
+                                        <h5>@(await _context.BlogPosts.FindAsync(Model.PreviousPostId.Value))?.Title</h5>
+                                    </a>
+                                </div>
+                            }
+                            @if (Model.NextPostId.HasValue)
+                            {
+                                <div class="blog-details__item__nav__next">
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@Model.NextPostId">
+                                        <span>Bài sau</span>
+                                        <h5>@(await _context.BlogPosts.FindAsync(Model.NextPostId.Value))?.Title</h5>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                        <div class="blog-details__item__comment">
+                            <h4>Để lại bình luận</h4>
+                            <form asp-controller="Blog" asp-action="PostComment" method="post">
+                                <input type="hidden" name="postId" value="@Model.Id" />
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <input type="text" name="userId" placeholder="Tên" class="form-control" required />
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="email" name="userId" placeholder="Email" class="form-control" required />
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <textarea name="comment" placeholder="Nội dung bình luận" class="form-control" required></textarea>
+                                        <button type="submit" class="site-btn">Post Nội dung bình luận</button>
+                                    </div>
+                                </div>
+                            </form>
+                            @if (Model.Comments != null && Model.Comments.Any())
+                            {
+                                <div class="comment-list">
+                                    <h4>Bình luận (@Model.Comments.Count)</h4>
+                                    @foreach (var comment in Model.Comments.OrderBy(c => c.DatePosted))
+                                    {
+                                        <div class="comment-item">
+                                            <span class="comment-author">@comment.UserId</span>
+                                            <span class="comment-date">@comment.DatePosted.ToString("dd/MM/yyyy HH:mm")</span>
+                                            <p>@comment.Content</p>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog Details Section End -->
+@inject MaleFashion.Data.ApplicationDbContext _context

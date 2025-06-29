@@ -1,0 +1,53 @@
+﻿@model List<MaleFashion.Models.BlogPost>
+
+@{
+    ViewData["Title"] = "Bài viết";
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Bài viết</h4>
+                    <div class="breadcrumb__links">
+                        <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                        <span>Bài viết</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Blog Section Begin -->
+<section class="blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Bài viết của chúng tôi</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var post in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="@post.ImageUrl" alt="@post.Title">
+                        </div>
+                        <div class="blog__item__text">
+                            <span><img src="img/icon/calendar.png" alt=""> @post.DatePosted.ToString("dd MMMM yyyy")</span>
+                            <h5>@post.Title</h5>
+                            <a asp-controller="Blog" asp-action="Details" asp-route-id="@post.Id" class="blog__btn">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->

@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Liên hệ";
+}
+
+ 
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Liên hệ với chúng tôi</h4>
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                        <span>Liên hệ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Map Begin -->
+<div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.294209547784!2d108.43758727593172!3d11.954120588275535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317112d9fa107679%3A0x16059197e32dd0aa!2zMzMgTmd1eeG7hW4gQ8O0bmcgVHLhu6ksIFBoxrDhu51uZyA4LCDEkMOgIEzhuqF0LCBMw6JtIMSQ4buTbmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1749796367218!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+<!-- Map End -->
+<!-- Contact Section Begin -->
+<section class="contact spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__text">
+                    <div class="section-title">
+                        <span>Thông tin</span>
+                        <h2>Liên hệ với chúng tôi</h2>
+                        <p>
+                            As you might expect of a company that began as a high-end interiors contractor, we pay
+                            strict attention.
+                        </p>
+                    </div>
+                    <ul>
+                        <li>
+                            <h4>America</h4>
+                            <p>195 E Parker Square Dr, Parker, CO 801 <br />+43 982-314-0958</p>
+                        </li>
+                        <li>
+                            <h4>France</h4>
+                            <p>109 Avenue Léon, 63 Clermont-Ferrand <br />+12 345-423-9893</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__form">
+                    @if (ViewBag.SuccessMessage != null)
+                    {
+                        <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+                    }
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+                    }
+                    <form asp-controller="Home" asp-action="Contact" method="post">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="name" placeholder="Họ tên" required />
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="email" name="email" placeholder="Email" required />
+                            </div>
+                            <div class="col-lg-12">
+                                <textarea name="message" placeholder="Nội dung" required></textarea>
+                                <button type="submit" class="site-btn">Gửi Nội dung</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Section End -->
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

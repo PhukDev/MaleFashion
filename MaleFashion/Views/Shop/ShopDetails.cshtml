@@ -1,0 +1,196 @@
+﻿@model MaleFashion.Models.Product
+@using MaleFashion.Models
+@{
+    ViewData["Title"] = "Shop Details";
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h2>Chi tiết sản phẩm</h2>
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                        <a href="@Url.Action("Index", "Shop")">Cửa hàng</a>
+                        <span>Chi tiết sản phẩm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shop Details Section Begin -->
+<section class="shop-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        <img src="@Model.ImageUrl" alt="@Model.Name">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="product__details__text">
+                    <h3>@Model.Name</h3>
+                    <div class="rating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <i class="fa @(i <= Model.Rating ? "fa-star" : "fa-star-o")"></i>
+                        }
+                        <span>(@Model.Rating Reviews)</span>
+                    </div>
+                    <h5>@Model.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))</h5>
+                    <p>@Model.Description</p>
+                    <div class="product__details__option">
+                        <div class="product__details__option__size">
+                            <span>Kích thước:</span>
+                            <label for="xxl"><input type="radio" id="xxl" name="size" @(Model.Size == "XXL" ? "checked" : "")> xxl</label>
+                            <label for="xl"><input type="radio" id="xl" name="size" @(Model.Size == "XL" ? "checked" : "")> xl</label>
+                            <label for="l"><input type="radio" id="l" name="size" @(Model.Size == "L" ? "checked" : "")> l</label>
+                            <label for="s"><input type="radio" id="s" name="size" @(Model.Size == "S" ? "checked" : "")> s</label>
+                        </div>
+                        <div class="product__details__option__color">
+                            <span>Màu sắc:</span>
+                            <label class="c-1" style="background-color: @Model.Color;"><input type="radio" name="color"></label>
+                        </div>
+                    </div>
+                    <form asp-controller="ShoppingCart" asp-action="AddToShoppingCart" method="post">
+                        <input type="hidden" name="productId" value="@Model.Id" />
+                        <button type="submit" class="primary-btn">Thêm vào giỏ</button>
+                    </form>
+                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span> Thêm vào yêu thích</a>
+                    <a href="@Url.Action("Details", "Shop", new { id = Model.Id })" class="compare-icon"><span class="icon_compare"></span> So sánh</a>
+                    <ul>
+                        <li><b>SKU:</b> @Model.Id.ToString("D7")</li>
+                        <li><b>Danh mục:</b> <a href="@Url.Action("Index", "Shop", new { categoryId = Model.CategoryId })">@(ViewBag.CategoryName ?? "Clothes")</a></li>
+                        <li><b>Từ khóa:</b> Clothes, @(Model.Color), @(Model.Size)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Mô tả</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Thông tin sản phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Chất liệu sử dụng</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="product__details__tab__content">
+                                <p>@Model.Description</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            <div class="product__details__tab__content">
+                                <p>A Pocket PC is a handheld computer, which features many of the same capabilities as a modern PC. These handy little devices allow individuals to retrieve and store e-mail messages, create a contact file, coordinate appointments, surf the internet, exchange text messages and more. Every product that is labeled as a Pocket PC must be accompanied with specific software to operate the unit and must feature a touchscreen and touchpad.</p>
+                                <p>As is the case with any new technology product, the cost of a Pocket PC was substantial during its early release. For approximately $700.00, consumers could purchase one of top-of-the-line Pocket PCs in 2003. These days, customers are finding that prices have become much more reasonable now that the newness is wearing off. For approximately $350.00, a new Pocket PC can now be purchased.</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabs-3" role="tabpanel">
+                            <div class="product__details__tab__content">
+                                <p>Polyester is deemed lower quality due to its non-natural qualities. Made from synthetic materials, not natural like wool. Polyester suits become creased easily and are known for not being breathable. Polyester suits tend to have a shine to them compared to wool and cotton suits, this can make the suit look cheap. The texture of velvet is luxurious and breathable. Velvet is a great choice for dinner party jacket and can be worn all year round.</p>
+                            </div>
+                        </div>
+                        personally, I’m not sure why this code is repeated three times in the original shop-details.html, but I’ve kept it as is for consistency. If you want to streamline it, I can suggest a revision. -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Details Section End -->
+<!-- Related Products Section Begin -->
+<section class="related spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="related-title">Sản phẩm liên quan</h3>
+            </div>
+        </div>
+        <div class="row">
+            @if (ViewBag.RelatedProducts != null && (ViewBag.RelatedProducts as List<Product>)?.Any() == true)
+            {
+                @foreach (var product in ViewBag.RelatedProducts as List<Product>)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            @if (product.IsOnSale)
+                            {
+                                <div class="product__item__pic set-bg" data-setbg="@product.ImageUrl">
+                                    <span class="label">Giảm giá</span>
+                                    <ul class="product__hover">
+                                        <li><a href="#"><img src="~/img/icon/heart.png" alt="Wishlist"></a></li>
+                                        <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/compare.png" alt="Compare"> <span>So sánh</span></a></li>
+                                        <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/search.png" alt="Details"></a></li>
+                                    </ul>
+                                </div>
+                            }
+                            else if (product.IsNew)
+                            {
+                                <div class="product__item__pic set-bg" data-setbg="@product.ImageUrl">
+                                    <span class="label">Mới</span>
+                                    <ul class="product__hover">
+                                        <li><a href="#"><img src="~/img/icon/heart.png" alt="Wishlist"></a></li>
+                                        <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/compare.png" alt="Compare"> <span>So sánh</span></a></li>
+                                        <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/search.png" alt="Details"></a></li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="product__item__pic set-bg" data-setbg="@product.ImageUrl">
+                                    <ul class="product__hover">
+                                        <li><a href="#"><img src="~/img/icon/heart.png" alt="Wishlist"></a></li>
+                                        <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/compare.png" alt="Compare"> <span>So sánh</span></a></li>
+                                        <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/search.png" alt="Details"></a></li>
+                                    </ul>
+                                </div>
+                            }
+                            <div class="product__item__text">
+                                <h6>@product.Name</h6>
+                                <form asp-controller="ShoppingCart" asp-action="AddToShoppingCart" method="post">
+                                    <input type="hidden" name="productId" value="@product.Id" />
+                                    <button type="submit" class="add-cart">+ Thêm vào giỏ</button>
+                                </form>
+                                <div class="rating">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <i class="fa @(i <= product.Rating ? "fa-star" : "fa-star-o")"></i>
+                                    }
+                                </div>
+                                <h5>@product.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))</h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Không có sản phẩm liên quan.</p>
+            }
+        </div>
+    </div>
+</section>
+<!-- Related Products Section End -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.add-cart').on('click', function (e) {
+                e.preventDefault();
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+}

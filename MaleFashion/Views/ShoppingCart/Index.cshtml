@@ -1,0 +1,121 @@
+﻿@model IEnumerable<MaleFashionCoreMVC.Controllers.CartItemViewModel>
+@using MaleFashion.Models
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Giỏ hàng</h4>
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                        <a href="@Url.Action("Index", "Shop")">Cửa hàng</a>
+                        <span>Giỏ hàng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shopping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Tổng cộng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="@item.ImageUrl" alt="@item.ProductName" style="max-width: 100px;">
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>@item.ProductName</h6>
+                                                <h5>@item.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))</h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity__item">
+                                            <div class="quantity">
+                                                <div class="pro-qty-2">
+                                                    <input type="number" name="quantities[@item.ProductId]" value="@item.Quantity" min="1">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price">@((item.Price * item.Quantity).ToString("C", new System.Globalization.CultureInfo("en-US")))</td>
+                                        <td class="cart__close">
+                                            <a href="@Url.Action("RemoveFromCart", "ShoppingCart", new { id = item.ProductId })">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4">Giỏ hàng của bạn đang trống.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="continue__btn">
+                            <a href="@Url.Action("Index", "Shop")">Tiếp tục mua sắm</a>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 offset-lg-4">
+                        <div class="cart__discount">
+                            <h6>Mã giảm giá</h6>
+                            <form asp-action="ApplyCoupon" method="post">
+                                <input type="text" name="couponCode" placeholder="Mã giảm giá">
+                                <button type="submit">Áp dụng</button>
+                            </form>
+                        </div>
+                        <div class="cart__total">
+                            <h6>Tổng giỏ hàng</h6>
+                            <ul>
+                                <li>Tạm tính <span>@((ViewBag.Subtotal ?? 0m).ToString("C", new System.Globalization.CultureInfo("en-US")))</span></li>
+                                <li>Tổng cộng <span>@((ViewBag.Total ?? 0m).ToString("C", new System.Globalization.CultureInfo("en-US")))</span></li>
+                            </ul>
+                            <a href="@Url.Action("Checkout", "Orders")" class="primary-btn">Tiến hành thanh toán</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shopping Cart Section End -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.pro-qty-2 input').on('change', function () {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+}

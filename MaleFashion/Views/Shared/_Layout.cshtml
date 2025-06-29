@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+                            <p>Miễn phí vận chuyển, đảm bảo hoàn tiền hoặc trả hàng trong 30 ngày nếu gặp lỗi</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="header__top__links">
+                                   <span style="color: #ffffff;">Xin chào, @User.Identity.Name</span>
+                                    <form asp-action="Logout" asp-controller="Account" method="post" style="display:inline;">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-link" style="color: #ffffff; text-decoration: none;">Đăng xuất</button>
+                                    </form>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="header__top__links">
+                                    <a href="@Url.Action("Login", "Account")">Đăng nhập</a>
+                                    <a href="@Url.Action("Register", "Account")">Đăng ký</a>
+                                </div>
+                            }
+                            <div class="header__top__hover">
+                                <span>Usd <i class="arrow_carrot-down"></i></span>
+                                <ul>
+                                    <li>USD</li>
+                                    <li>EUR</li>
+                                    <li>VND</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a asp-controller="Home" asp-action="Index"><img src="~/img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li><a asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
+                            <li><a asp-controller="Shop" asp-action="Index">Cửa hàng</a></li>
+                            <li>
+                                <a href="#">Tiện ích</a>
+                                <ul class="dropdown">
+                                    <li><a asp-controller="Home" asp-action="About">Về chúng tôi</a></li>
+                                    <li><a asp-controller="ShoppingCart" asp-action="Index">Giỏ hàng</a></li>
+                                    <li><a asp-controller="Blog" asp-action="Index">Bài báo</a></li>
+                                </ul>
+                            </li>
+                            <li><a asp-controller="Blog" asp-action="Index">Bài báo</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Liên hệ</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                        <a asp-controller="ShoppingCart" asp-action="Index"><img src="~/img/icon/cart.png" alt=""> <span>@(ViewBag.CartCount ?? 0)</span></a>
+                        <div class="price">@((ViewBag.CartTotal ?? 0m).ToString("C", new System.Globalization.CultureInfo("en-US")))</div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    <div class="container">
+        @RenderBody()
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        </div>
+                        <p>Chúng tôi luôn mang những trải nghiệm về sản phẩm tốt nhất cho khách hàng.</p>
+                        <a href="#"><img src="img/payment.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Mua sắm</h6>
+                        <ul>
+                            <li><a href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
+                            <li><a href="#">Phương thức thanh toán</a></li>
+                            <li><a href="#">Giao hàng</a></li>
+                            <li><a href="#">Hoàn trả & Đổi hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Bản tin</h6>
+                        <div class="footer__newslatter">
+                            <p>Nhận thông tin mới nhất về hàng mới, giảm giá & khuyến mãi!</p>
+                            <form action="#">
+                                <input type="text" placeholder="Email của bạn">
+                                <button type="submit"><span class="icon_mail_alt"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer__copyright__text">
+                        <p>
+                            Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>2020
+                            All rights reserved 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Tìm kiếm tại đây.....">
+            </form>
+        </div>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

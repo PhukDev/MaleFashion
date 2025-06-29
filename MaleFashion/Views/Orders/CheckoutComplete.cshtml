@@ -1,0 +1,69 @@
+﻿@model MaleFashion.Models.OrderViewModel
+@using MaleFashion.Models
+
+@{
+    ViewData["Title"] = "Thanh toán thành công";
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Thanh toán thành công</h4>
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                        <a href="@Url.Action("Index", "Shop")">Cửa hàng</a>
+                        <span>Thanh toán</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Checkout Complete Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="text-center">Cảm ơn bạn đã đặt hàng!</h2>
+                <p class="text-center">Đơn hàng của bạn đã được xử lý thành công. Bạn sẽ nhận được email xác nhận sớm.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-6 offset-lg-2 offset-md-3">
+                <div class="checkout__order">
+                    <h4 class="order__title">Tóm tắt đơn hàng</h4>
+                    <div class="checkout__order__products">Sản phẩm <span>Tổng cộng</span></div>
+                    <ul class="checkout__total__products">
+                        @if (Model?.OrderItems != null && Model.OrderItems.Any())
+                        {
+                            foreach (var item in Model.OrderItems)
+                            {
+                                <li>@item.ProductName <span>@(item.Price * item.Quantity).ToString("C", new System.Globalization.CultureInfo("en-US"))</span></li>
+                            }
+                        }
+                        else
+                        {
+                            <li>Không có sản phẩm trong đơn hàng.</li>
+                        }
+                    </ul>
+                    <ul class="checkout__total__all">
+                        <li>Tạm tính <span>@(Model?.OrderItems.Sum(item => item.Price * item.Quantity) ?? 0).ToString("C", new System.Globalization.CultureInfo("en-US"))</span></li>
+                        <li>Tổng cộng <span>@(Model?.Total ?? 0).ToString("C", new System.Globalization.CultureInfo("en-US"))</span></li>
+                    </ul>
+                    <div class="checkout__order__details">
+                        <p><strong>Mã đơn hàng:</strong> @Model?.Id</p>
+                        <p><strong>Ngày đặt hàng:</strong> @Model?.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p><strong>Địa chỉ giao hàng:</strong> @Model?.Address, @Model?.City, @Model?.Country</p>
+                        <p><strong>Phương thức thanh toán:</strong> @Model?.PaymentMethod</p>
+                    </div>
+                    <a href="@Url.Action("Index", "Home")" class="site-btn">Tiếp tục mua sắm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Checkout Complete Section End -->

@@ -1,0 +1,257 @@
+﻿@model IEnumerable<MaleFashion.Models.Product>
+@using MaleFashion.Models
+
+@{
+    ViewData["Title"] = "Shop Page";
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h2>Cửa hàng</h2>
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                        <span>Cửa hàng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="shop__sidebar">
+                    <div class="shop__sidebar__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseOne">Danh mục</a>
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            @if (ViewBag.Categories != null && (ViewBag.Categories as List<Category>)?.Any() == true)
+                                            {
+                                                @foreach (var category in ViewBag.Categories as List<Category>)
+                                                {
+                                                    <li><a href="@Url.Action("Index", "Shop", new { categoryId = category.Id })">@category.Name</a></li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li><a href="#">Không có danh mục</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseTwo">Thương hiệu</a>
+                                </div>
+                                <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">Louis Vuitton</a></li>
+                                            <li><a href="#">Chanel</a></li>
+                                            <li><a href="#">Hermes</a></li>
+                                            <li><a href="#">Gucci</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseThree">Lọc theo giá</a>
+                                </div>
+                                <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><a href="#">$0.00 - $50.00</a></li>
+                                            <li><a href="#">$50.00 - $100.00</a></li>
+                                            <li><a href="#">$100.00 - $150.00</a></li>
+                                            <li><a href="#">$150.00 - $200.00</a></li>
+                                            <li><a href="#">$200.00 - $250.00</a></li>
+                                            <li><a href="#">250.00+</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseFour">Kích thước</a>
+                                </div>
+                                <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="size__btn">
+                                            <label for="xs" class="active"><input type="checkbox" id="xs"> xs</label>
+                                            <label for="s"><input type="checkbox" id="s"> s</label>
+                                            <label for="m"><input type="checkbox" id="m"> m</label>
+                                            <label for="xl"><input type="checkbox" id="xl"> xl</label>
+                                            <label for="2xl"><input type="checkbox" id="2xl"> 2xl</label>
+                                            <label for="xxl"><input type="checkbox" id="xxl"> xxl</label>
+                                            <label for="3xl"><input type="checkbox" id="3xl"> 3xl</label>
+                                            <label for="4xl"><input type="checkbox" id="4xl"> 4xl</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseFive">Màu sắc</a>
+                                </div>
+                                <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="color__btn">
+                                            <label class="c-1"><input type="radio" name="color"></label>
+                                            <label class="c-2"><input type="radio" name="color"></label>
+                                            <label class="c-3"><input type="radio" name="color"></label>
+                                            <label class="c-4"><input type="radio" name="color"></label>
+                                            <label class="c-5"><input type="radio" name="color"></label>
+                                            <label class="c-6"><input type="radio" name="color"></label>
+                                            <label class="c-7"><input type="radio" name="color"></label>
+                                            <label class="c-8"><input type="radio" name="color"></label>
+                                            <label class="c-9"><input type="radio" name="color"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseSix">Từ khóa</a>
+                                </div>
+                                <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="tag__btn">
+                                            <a href="#">Sản phẩm</a>
+                                            <a href="#">Túi xách</a>
+                                            <a href="#">Giày dép</a>
+                                            <a href="#">Thời trang</a>
+                                            <a href="#">Quần áo</a>
+                                            <a href="#">Mũ nón</a>
+                                            <a href="#">Phụ kiện</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="shop__product__option">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__left">
+                                <p>Hiển thị 1–14 trong 14 kết quả</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__right">
+                                <p>Sắp xếp theo giá:</p>
+                                <select>
+                                    <option value=""> Từ thấp đến cao</option>
+                                    <option value="">$0 - $55</option>
+                                    <option value="">$55 - $100</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var product in Model)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <a href="@Url.Action("Details", "Shop", new { id = product.Id })">
+                                        @if (product.Price < 50)
+                                        {
+                                            <div class="product__item__pic set-bg" data-setbg="@product.ImageUrl">
+                                                <span class="label">Giảm giá</span>
+                                                <ul class="product__hover">
+                                                    <li><a href="#"><img src="~/img/icon/heart.png" alt="Wishlist"></a></li>
+                                                    <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/compare.png" alt="Compare"> <span>So sánh</span></a></li>
+                                                    <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/search.png" alt="Details"></a></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                        else if (product.IsNew)
+                                        {
+                                            <div class="product__item__pic set-bg" data-setbg="@product.ImageUrl">
+                                                <span class="label">Mới</span>
+                                                <ul class="product__hover">
+                                                    <li><a href="#"><img src="~/img/icon/heart.png" alt="Wishlist"></a></li>
+                                                    <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/compare.png" alt="Compare"> <span>So sánh</span></a></li>
+                                                    <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/search.png" alt="Details"></a></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="product__item__pic set-bg" data-setbg="@product.ImageUrl">
+                                                <ul class="product__hover">
+                                                    <li><a href="#"><img src="~/img/icon/heart.png" alt="Wishlist"></a></li>
+                                                    <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/compare.png" alt="Compare"> <span>So sánh</span></a></li>
+                                                    <li><a href="@Url.Action("Details", "Shop", new { id = product.Id })"><img src="~/img/icon/search.png" alt="Details"></a></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                    </a>
+                                    <div class="product__item__text">
+                                        <h6><a href="@Url.Action("Details", "Shop", new { id = product.Id })">@product.Name</a></h6>
+                                        <form asp-controller="ShoppingCart" asp-action="AddToShoppingCart" method="post">
+                                            <input type="hidden" name="productId" value="@product.Id" />
+                                            <button type="submit" class="add-cart">+ Thêm vào giỏ</button>
+                                        </form>
+                                        <div class="rating">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                <i class="fa @(i <= product.Rating ? "fa-star" : "fa-star-o")"></i>
+                                            }
+                                        </div>
+                                        <h5>@product.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))</h5>
+                                        <div class="product__color__select">
+                                            <span class="color-display" style="background-color: @product.Color; width: 20px; height: 20px; display: inline-block; border-radius: 50%;"></span>
+                                            <span>@product.Color</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>Không có sản phẩm nào để hiển thị.</p>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__pagination">
+                            <a href="#" class="active">1</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Section End -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.add-cart').on('click', function (e) {
+                e.preventDefault();
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+}
